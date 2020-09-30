@@ -6,11 +6,14 @@
 
 int main()
 {
+	setlocale(LC_ALL, "fr-FR");
 	int compteur = 0,
 		a = 0,
 		i = 0,
 		nb_min = 0,
-		nb_max = 0;
+		nb_max = 0,
+		absence = 0;
+
 
 	float
 		total = 0,
@@ -23,35 +26,80 @@ int main()
 
 
 
-	while (note >= 0 && note <= 20)
+	while (compteur < 30)
 	{
-		printf("Entrez la note numero %d \n", i + 1);
+		printf("introduisez une note: \n");
 		scanf_s("%f", &note);
-		compteur = compteur + 1;
+		
 		tab[i] = note;
 		i++;
-	}
 
-	if (note < 0 || note > 20) {
-		printf("\nElève absent ? ou voulez-vous arrêter la saisie des notes ? A(bsent) /O(ui) /N(on)");
-		char ch = '\0';
-		ch = _getch("AON");  //permet de poser une question à l'utilisateur
+		/*traitement de la note*/
+		if (note >= 0 && note <= 20) {
+			compteur = compteur + 1;
 
-		switch (ch)
-		{
-		case 'A':
-		case 'a':
-			note == -1;
-			break;
-		case 'O':
-		case 'o':
-			compteur = compteur - 1;
-			break;
-
-		case 'N':
-		case 'n':
-			break;
+			if (note >= note_max)
+			{
+				if (note == note_max)
+					nb_max++;
+				else
+				{
+					note_max = note;
+					nb_max = 1;
+				}
+			}
+			if ((note <= note_min) && (note > 0))
+			{
+				if (note == note_min)
+					nb_min++;
+				else
+				{
+					note_min = note;
+					nb_min = 1;
+				}
+			}
 		}
+		//si la note n'est pas valide /
+		if (note < 0.00 || note > 20.00) {
+			printf("\nVous avez tapé une note invalide, l'élève est-il (A)bsent ou voulez vous arrêter la saisie (O)ui (N)on ?");
+			char ch = '\0';
+			ch = (char)_getch();  //permet de poser une question à l'utilisateur
+			ch = toupper(ch);
+			switch (ch)
+			{
+			case 'A':
+				absence += 1;
+				break;
+			case 'O':
+				compteur = 30;
+				break;
 
+			case 'N':
+				break;
+			}
+
+		}
 	}
+	if (compteur != 0)
+	{
+
+		for (i > 0; i < compteur; i++) {
+			printf("\n%.2f", tab[i]);
+			total += tab[i];
+		}
+		moyenne = total / (compteur);
+
+		/*affichage des notes*/
+		printf("\n La note moyenne est de :%.2f", moyenne);
+		printf("\nLa note minimal est :%.2f", note_min);
+		printf("\nIl y %d notes minimales", nb_min);
+		printf("\nLa note maximale est de :%.2f", note_max);
+		printf("\nIl y a %d notes maximales", nb_max);
+		printf("\nL'élève a %d heure(s) d'absence.", absence);
+	}
+	else {
+	printf("Aucune note valide !\n");
+	}
+
 }
+		
