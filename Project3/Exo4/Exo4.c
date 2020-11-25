@@ -6,8 +6,7 @@
 
 
 int main() {
-	int
-		i = 0,
+	int	i = 0,
 		j = 0,
 		a = 0,
 		b = 0,
@@ -39,7 +38,7 @@ int main() {
 		NotMask = 0,
 		Adresse_Broadcast = 0;
 
-	/*masque réseau*/
+	//masque réseau
 	for (i = 0; i <= IPv4MaskLength; i++) {
 		IPV4 += 1;
 		IPV4 = (IPV4 << 1);
@@ -49,7 +48,7 @@ int main() {
 		IPV4 = (IPV4 << 1);
 	}
 
-	/*adresse réseau*/
+	//adresse réseau
 	MyAddress = (MyAddress_w << 24) + (MyAddress_x << 16) + (MyAddress_y << 8) + (MyAddress_z); //met l'adresse IP sur 24 bits mais peut être codé sur plus
 	Adresse_reseau = MyAddress & IPV4;
 	w = Adresse_reseau >> 24;
@@ -60,7 +59,7 @@ int main() {
 	y1 = y << 8;
 	z = Adresse_reseau - (w1 + x1 + y1);
 
-	/*adresse broadcast*/
+	//adresse broadcast
 	NotMask = (NotMask_a << 24) + (NotMask_b << 16) + (NotMask_c << 8) + (NotMask_d);
 	Adresse_Broadcast = Adresse_reseau | NotMask;
 	a = Adresse_Broadcast >> 24;
@@ -73,7 +72,7 @@ int main() {
 
 
 
-	/*affichage des données */
+	//affichage des données
 	printf("adresse IPV4 : %d.%d.%d.%d/%d", MyAddress_w, MyAddress_x, MyAddress_y, MyAddress_z, IPv4MaskLength);
 	printf("\nadresse du reseau : %u.%u.%u.%u/%d", w, x, y, z, IPv4MaskLength);
 	printf("\nadresse broadcast : %u.%u.%u.%u", a, b, c, d);
