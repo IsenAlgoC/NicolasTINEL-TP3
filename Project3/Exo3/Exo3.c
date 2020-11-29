@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<math.h>
 #define NBMAXNOTES 30
+
 void main() {
 	int i = 0;
 	float note[NBMAXNOTES];
@@ -18,7 +19,7 @@ void main() {
 	{
 		printf("Entrer la note n° %d :", i);
 		scanf_s("%f", &note[i]);
-		if ((note[i] < 0.0) || (note[i] > 20.0))
+		if ((note[i] < 0) || (note[i] > 20))
 		{
 
 			printf("Elève absent ? ou voulez-vous arrêter la saisie des notes ? A/O/N ");
@@ -83,9 +84,10 @@ void main() {
 	{
 		if ((note[i] >= 0.0) && (note[i] <= 20))
 		{
-			stepone = stepone + pow(2, (note[i] - moyenne));
+			float var = note[i] - moyenne;
+			stepone = stepone + pow(2, var);
 		}
 	}
 	ecarttype = (1 / (quotient - 1)) * stepone;
-	printf("Notes valides : %d, Note min : %f, Note max : %f, Nombre d'absences : %d, Moyenne : %f, Ecarttype : %f", valide, note_min, note_max, absent, moyenne, ecarttype);
+	printf("Notes valides : %d,\n Note min : %f,\n Note max : %f,\n Nombre d'absences : %d,\n Moyenne : %f,\n Ecarttype : %f", valide, note_min, note_max, absent, moyenne, ecarttype);
 }
